@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import Styles from "./component.module.css";
 import { CoinState } from "./Context";
 import ReactHtmlParser from "html-react-parser";
+import { LinearProgress } from "@mui/material";
+import HistoricalChart from "./HistoricalChart";
 // import ReactHtmlParser, {
 //   processNodes,
 //   convertNodeToElement,
@@ -13,15 +15,25 @@ import ReactHtmlParser from "html-react-parser";
 const parse = require("html-react-parser");
 const SingleCoin = () => {
   const [currency, setcurrency] = useState([]);
+  
   let { id } = useParams();
-
+  const {  loading, setloading,  } =
+  CoinState();
   useEffect(() => {
-    axios
-      .get(`https://api.coingecko.com/api/v3/coins/${id}`)
-      .then((res) => setcurrency(res.data));
+    fetchdata();
+    
   }, [id]);
-  console.log(currency);
+  const fetchdata =async()=>{
+    setloading(true)
+    let res = await axios.get(`https://api.coingecko.com/api/v3/coins/${id}`)
+    res = await res.data;
+    setcurrency(res)
+    setloading(false)
+  }
+ 
   return (
+    <>
+    {loading && <LinearProgress style={{ backgroundColor: "gold" }} />}
     <div className={Styles.singleCoin}>
       <div className={Styles.content}>
         <h1>{currency.name}</h1>
@@ -76,6 +88,9 @@ const SingleCoin = () => {
           </tr>
         </table>
       </div>
+      <div>
+        <HistoricalChart/>
+      </div>
       <div className={Styles.description}>
         <h1>About</h1>
         {/* <p>{currency.description}</p> */}
@@ -86,16 +101,20 @@ const SingleCoin = () => {
               justifyContent: "center",
               fontSize: 22,
               lineHeight: 1.5,
+            
             }}
           >
-            {ReactHtmlParser(currency?.description.en)}.
+            {ReactHtmlParser(currency?.description.en.split(".")[0])}.
           </p>
         ) : (
           ""
         )}
       </div>
     </div>
-  );
+  
+  
+  </>
+  )
 };
 
 export default SingleCoin;

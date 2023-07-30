@@ -1,18 +1,23 @@
+import React ,{ lazy,Suspense } from "react";
 import { makeStyles } from "@mui/material";
 import "./App.css";
 import Header from "./Components/Header";
-import Banner from "./Components/Banner";
+
 import "./styles.css";
-import Search from "./Components/Search";
-import CoinTable from "./Components/CoinTable";
 import { Routes, Route } from "react-router-dom";
-import SingleCoin from "./Components/SingleCoin";
+import { LinearProgress } from "@mui/material";
+const Search = lazy(()=>import("./Components/Search"))
+const CoinTable = lazy(()=>import("./Components/CoinTable"))
+const Banner =lazy(()=>import("./Components/Banner"))
+const SingleCoin = lazy(()=>import("./Components/SingleCoin"))
+
 function App() {
   return (
     <div className="app">
       <Header />
-
+      <Suspense fallback={ <LinearProgress style={{ backgroundColor: "gold" }} />}>
       <Routes>
+       
         <Route
           path="/"
           element={
@@ -26,6 +31,7 @@ function App() {
 
         <Route path="/coin/:id" element={<SingleCoin />}></Route>
       </Routes>
+      </Suspense>
     </div>
   );
 }

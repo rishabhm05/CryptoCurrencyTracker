@@ -31,7 +31,7 @@ const CoinTable = () => {
     );
   };
   handlesearch();
-
+  console.log(loading)
   return (
     <div>
       <Container>
