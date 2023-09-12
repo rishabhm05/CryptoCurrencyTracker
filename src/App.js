@@ -1,11 +1,12 @@
 import React ,{ lazy,Suspense } from "react";
-import { makeStyles } from "@mui/material";
+import { makeStyles, Slider } from "@mui/material";
 import "./App.css";
 import Header from "./Components/Header";
 
 import "./styles.css";
 import { Routes, Route } from "react-router-dom";
 import { LinearProgress } from "@mui/material";
+import Carousel from "./Components/Carousel";
 const Search = lazy(()=>import("./Components/Search"))
 const CoinTable = lazy(()=>import("./Components/CoinTable"))
 const Banner =lazy(()=>import("./Components/Banner"))
