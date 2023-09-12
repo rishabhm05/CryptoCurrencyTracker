@@ -18,7 +18,7 @@ const Carousel = () => {
 const items = trendingcoin.map((coin)=>{
   return(
     <Link to={`/coin/${coin?.id}`}>
-    <img src={coin?.image} height="80"/>
+    <img src={coin?.image} alt={coin?.name} height="80"/>
     </Link>
   )
 })
@@ -32,7 +32,7 @@ const responsive ={
 }
   return (
     <div className={styles.carousel}>
-      <AliceCarousel mouseTracking infinite autoPlayInterval={1000} animationDuration={1500} disableDotsControls autoPlay items={items} responsive={responsive} />
+      <AliceCarousel mouseTracking infinite autoPlayInterval={1000} animationDuration={1500} disableDotsControls autoPlay items={items} responsive={responsive} disableButtonsControls />
     </div>
   )
 }
